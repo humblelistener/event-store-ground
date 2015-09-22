@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ges-client": "^0.10.0",
     "guid": "0.0.12",
     "infinite-loop": "^0.2.2",
     "randomstring": "^1.1.0",
