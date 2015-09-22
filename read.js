@@ -18,33 +18,28 @@ var parse = function(streamUri){
 		stream.pipe(feedparser);
 	});
 
-	feedparser.on('error', getParserErrorHandler(feedparser));
-	feedparser.on('readable', getParserReadable(feedparser));
+	feedparser.on('error', parserErrorHandler);
+	feedparser.on('readable', parserReadable);
 }
 
-var getParserErrorHandler = function(feedparser){
-	return function() {
-			feedparser.on('error', function(error) {
-			// always handle errors
-			throw error;
-		});
-	};
+var parserErrorHandler = function(error) {
+	// always handle errors
+	throw error;
 };
 
-var getParserReadable = function(feedparser){
-	return function(){
-		feedparser.on('readable', function() {
-			// This is where the action is!
-			var stream = this
-				, meta = this.meta // **NOTE** the "meta" is always available in the context of the feedparser instance
-				, item;
+var parserReadable = function(){
+	// This is where the action is!
+	var stream = this
+		, meta = this.meta // **NOTE** the "meta" is always available in the context of the feedparser instance
+		, item;
 
-			while (item = stream.read()) {
-				console.log(item);
-				count++;
-			}
-		});
+	while (item = stream.read()) {
+		console.log(item);
 	}
+
+	// if(readToEnd && meta && meta['atom:link'])
 };
+
+var readToEnd = process.Env.READTOEND;
 
 parse('http://192.168.99.100:2113/streams/candidates/0/forward/5');
