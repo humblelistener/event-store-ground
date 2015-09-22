@@ -14,5 +14,8 @@
     "randomstring": "^1.1.0",
     "request": "^2.61.0",
     "simple-post-json": "^0.1.4"
+  },
+  "devDependencies": {
+    "feedparser": "^1.1.3"
   }
 }
