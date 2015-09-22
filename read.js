@@ -1,5 +1,7 @@
-var FeedParser = require('feedparser')
-	, request = require('request');
+require('array.prototype.find');
+
+var FeedParser = require('feedparser'),
+	request = require('request');
 
 var parse = function(streamUri){
 
@@ -34,12 +36,21 @@ var parserReadable = function(){
 		, item;
 
 	while (item = stream.read()) {
-		console.log(item);
+		console.log(item.title);
 	}
 
-	// if(readToEnd && meta && meta['atom:link'])
+	var previous = meta['atom:link'].find(function(link){
+		if (link['@'].rel === "previous"){
+			console.log(link['@']);
+			return link;
+		}
+	});
+
+	if(readToEnd && meta && meta['atom:link'] && previous) {
+		parse(previous['@'].href);
+	}
 };
 
-var readToEnd = process.Env.READTOEND;
+var readToEnd = true;
 
 parse('http://192.168.99.100:2113/streams/candidates/0/forward/5');
