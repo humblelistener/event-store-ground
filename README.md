@@ -12,6 +12,6 @@ For populating the event store, run the command:
 
 And that will insert randomly generated candidates into your event store
 
-If you wish to read the events as well, run the command:
+If you wish to read the events using this project as well, run the command:
 
 'node read.js' or 'node gesRead.js'
