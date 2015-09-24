@@ -21,7 +21,7 @@ var makeCandidate = function(){
 };
 
 var requestOptions = {
-  url: "http://127.0.0.1:2113/streams/candidates",
+  url: "http://192.168.99.100:2113/streams/candidates",
   headers: {
     "Content-Type": "application/vnd.eventstore.events+json"
   },
