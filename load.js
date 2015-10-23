@@ -6,7 +6,7 @@ var console = require('console');
 var guid = require('guid');
 
 var id = 0;
-var makeCandidate = function(){
+var makeCandidate = function(instanceId){
   return {
     firstName: randomstring.generate({
       charset: 'alphabetic',
@@ -16,24 +16,25 @@ var makeCandidate = function(){
       charset: 'alphabetic',
       length: 8
     }),
-    id: (id++).toString()
+    instanceId: instanceId,
+    personId: (id++).toString()
   };
 };
 
 var requestOptions = {
-  url: "http://192.168.99.100:2113/streams/candidates",
   headers: {
     "Content-Type": "application/vnd.eventstore.events+json"
   },
 };
 
-var post = function(){
+var post = function(instanceId){
   var candidateEvent = [ {
     eventId: guid.create(),
     eventType: 'candidate-created',
-    data: makeCandidate()
+    data: makeCandidate(instanceId)
   } ];
 
+  requestOptions.url = "http://192.168.99.100:2113/streams/candidate-" + instanceId + "-" + candidateEvent[0].data.personId;
   requestOptions.body = JSON.stringify(candidateEvent);
 
   request.post(requestOptions, function(err, response){
@@ -45,4 +46,4 @@ var post = function(){
   });
 };
 
-new infiniteLoop().add(post, 500).run();
+new infiniteLoop().add(post, 218).run();
