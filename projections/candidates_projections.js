@@ -1,6 +1,7 @@
 fromCategory('candidate')
     .foreachStream()
     .whenAny(function(state, event){
-        emit('candidates-' + event.data.instanceId, event.eventType, event.data);
-        emit('candidates', event.eventType, event.data);
+        var personId = event.data.personId;
+        emit('candidates-' + event.data.instanceId, event.eventType, { personId: event.data.personId });
+        emit('candidates', event.eventType, { personId: event.data.personId, instanceId: event.data.instanceId });
     });
