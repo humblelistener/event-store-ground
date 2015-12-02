@@ -30,11 +30,11 @@ var requestOptions = {
 var post = function(instanceId){
   var candidateEvent = [ {
     eventId: guid.create(),
-    eventType: 'candidate-created',
+    eventType: 'personaldetails-updated',
     data: makeCandidate(instanceId)
   } ];
 
-  requestOptions.url = "http://192.168.99.100:2113/streams/candidate-" + instanceId + "-" + candidateEvent[0].data.personId;
+  requestOptions.url = "http://192.168.98.100:2113/streams/candidate-" + instanceId + "-" + candidateEvent[0].data.personId;
   requestOptions.body = JSON.stringify(candidateEvent);
 
   request.post(requestOptions, function(err, response){
